@@ -1,6 +1,6 @@
 #!/usr/bin/make --no-print-directory --jobs=1 --environment-overrides -f
 
-CORELIBS_MK_VERSION := v0.1.4
+CORELIBS_MK_VERSION := v0.1.5
 
 SHELL = /bin/bash
 LOCAL_CORELIBS_PATH ?= ..
@@ -104,7 +104,7 @@ fmt:
 	@gofmt -w -s `find * -name "*.go"`
 
 test:
-	@go test -v ./...
+	@go test -race -v ./...
 
 coverage:
 	@go test -race -coverprofile=coverage.out -covermode=atomic -coverpkg=./... -v ./...
