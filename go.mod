@@ -1,4 +1,4 @@
-module github.com/go-curses/corelibs/spinner
+module github.com/go-corelibs/spinner
 
 go 1.21.0
 
