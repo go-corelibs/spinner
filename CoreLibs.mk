@@ -1,13 +1,13 @@
 #!/usr/bin/make --no-print-directory --jobs=1 --environment-overrides -f
 
-CORELIBS_MK_VERSION := v0.1.5
+CORELIBS_MK_VERSION := v0.1.6
 
 SHELL = /bin/bash
 LOCAL_CORELIBS_PATH ?= ..
 
 .PHONY: help version
 .PHONY: local unlocal be-update tidy
-.PHONY: build clean
+.PHONY: deps build clean fmt
 .PHONY: test coverage goconvey reportcard
 
 #
