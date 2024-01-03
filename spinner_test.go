@@ -15,6 +15,7 @@
 package spinner
 
 import (
+	"sync"
 	"testing"
 	"time"
 
@@ -36,12 +37,20 @@ func Test(t *testing.T) {
 	})
 
 	Convey("Automatic", t, func(c C) {
-		var idx int
+		state := struct {
+			i int
+			m *sync.RWMutex
+		}{
+			i: 0,
+			m: &sync.RWMutex{},
+		}
 		s := New(nil, func(symbol string) {
-			c.So(symbol, ShouldEqual, DefaultSymbols[idx])
-			idx += 1
-			if idx >= len(DefaultSymbols) {
-				idx = 0
+			state.m.Lock()
+			defer state.m.Unlock()
+			c.So(symbol, ShouldEqual, DefaultSymbols[state.i])
+			state.i += 1
+			if state.i >= len(DefaultSymbols) {
+				state.i = 0
 			}
 		})
 		So(s, ShouldNotEqual, nil)
@@ -49,8 +58,10 @@ func Test(t *testing.T) {
 		time.Sleep(time.Second)
 		s.Stop()
 		// check that it is actually stopped
-		So(s.String(), ShouldEqual, DefaultSymbols[idx])
+		state.m.RLock()
+		So(s.String(), ShouldEqual, DefaultSymbols[state.i])
 		time.Sleep(time.Millisecond * 250)
-		So(s.String(), ShouldEqual, DefaultSymbols[idx])
+		So(s.String(), ShouldEqual, DefaultSymbols[state.i])
+		state.m.RUnlock()
 	})
 }
