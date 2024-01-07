@@ -2,7 +2,7 @@
 [![codecov](https://codecov.io/gh/go-corelibs/spinner/graph/badge.svg?token=3jksYHZI8p)](https://codecov.io/gh/go-corelibs/spinner)
 [![Go Report Card](https://goreportcard.com/badge/github.com/go-corelibs/spinner)](https://goreportcard.com/report/github.com/go-corelibs/spinner)
 
-# go-corelibs/spinner - unicode character spinner
+# spinner - unicode character spinner
 
 spinner implements a means of rendering unicode characters that
 give a sense that something is happening and that the user is waiting
